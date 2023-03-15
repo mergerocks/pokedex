@@ -1,0 +1,22 @@
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+}
+
+.link {
+  display: inline-flex;
+  border-radius: 6px;
+  border: 2px solid blue;
+  padding: 2px 4px;
+  color: blue;
+  text-decoration: none;
+  font-weight: 500;
+  transition-property: color, background-color;
+  transition-duration: 0.2s;
+  transition-timing-function: ease;
+}
+.link:hover {
+  background-color: blue;
+  color: white;
+}
