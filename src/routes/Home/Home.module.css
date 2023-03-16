@@ -51,6 +51,7 @@
   display: flex;
   flex-wrap: wrap;
   list-style: none;
+  justify-content: center;
 }
 
 .listItem {
@@ -87,7 +88,6 @@
     display: block;
     width: 80px;
     height: 80px;
-    
   }
   .search {
     width: 200px;
