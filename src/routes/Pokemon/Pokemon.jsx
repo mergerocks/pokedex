@@ -1,35 +1,63 @@
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, Link } from 'react-router-dom';
 import styles from './Pokemon.module.css';
-
-const colors = {
-  blue: { background: 'blue', title: 'darkblue' },
-  brown: { background: 'brown', title: 'darkbrown' },
-  gray: { background: 'gray', title: 'darkgray' },
-  green: { background: 'green', title: 'darkgreen' },
-  pink: { background: 'pink', title: 'darkpink' },
-  purple: { background: 'purple', title: 'darkpurple' },
-  red: { background: 'red', title: 'darkred' },
-  white: { background: 'white', title: 'black' },
-  yellow: { background: 'yellow', title: 'orange' },
-};
 
 export const Pokemon = () => {
   const data = useLoaderData();
 
   return (
-    <div className={styles.container} style={{ backgroundColor: colors[data.color]?.background }}>
-      <header className={styles.header}>
-        <p className={styles.id}>#{String(data.id).padStart(3, '0')}</p>
-        <h2 className={styles.name}>{data.name}</h2>
-      </header>
-      <main className={styles.main}>
-        <h1 style={{ color: colors[data.color]?.title }} className={styles.title}>
-          {data.nameJA}
-        </h1>
-        <div className={styles.imageWrapper}>
-          <img className={styles.image} src={data.image} alt={data.name} />
-        </div>
-      </main>
-    </div>
+    <>
+      <style>{`:root {
+        background-color: ${data?.backgroundColor};
+      }`}</style>
+      <div className={styles.container}>
+        <header className={styles.header}>
+          <Link className={styles.back} to="/">
+            {'< '}back to list
+          </Link>
+          <div className={styles.info}>
+            <p className={styles.id}>#{String(data.id).padStart(3, '0')}</p>
+            <h2 style={{ color: data.color }} className={styles.name}>
+              {data.name}
+            </h2>
+          </div>
+        </header>
+        <main className={styles.main}>
+          <h1 style={{ color: data?.color }} className={styles.title}>
+            {data.nameJA}
+          </h1>
+          <div className={styles.imageWrapper}>
+            <img className={styles.image} src={data.image} alt={data.name} />
+          </div>
+        </main>
+        <nav className={styles.nav}>
+          {data.prev ? (
+            <Link
+              aria-label={data.prev.name}
+              className={styles.navLink}
+              to={`/${data.prev.name}`}>
+              <img
+                className={styles.iconNav}
+                src={data.prev.icon}
+                alt={data.prev.name}
+              />
+            </Link>
+          ) : (
+            <div />
+          )}
+          {data.next && (
+            <Link
+              aria-label={data.next.name}
+              className={styles.navLink}
+              to={`/${data.next.name}`}>
+              <img
+                className={styles.iconNav}
+                src={data.next.icon}
+                alt={data.next.name}
+              />
+            </Link>
+          )}
+        </nav>
+      </div>
+    </>
   );
 };

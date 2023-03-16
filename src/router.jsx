@@ -19,7 +19,11 @@ export const router = createBrowserRouter([
         pokeApi.getPokemonByName(params.name),
         pokeApi.getPokemonSpeciesByName(params.name),
       ]);
-      return { ...data, ...species };
+      const [prev, next] = await Promise.all([
+        pokeApi.getPokemonByName(data.id - 1),
+        pokeApi.getPokemonByName(data.id + 1),
+      ]);
+      return { ...data, ...species, prev, next };
     },
   },
 ]);
